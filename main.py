@@ -3,7 +3,7 @@ from constants import *
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
-from Shot import Shotwwwwwww
+from Shot import Shot
 
 
 def main():
@@ -34,6 +34,14 @@ def main():
             
         for updatable_thing in updatable:
             updatable_thing.update(dt)
+
+        for asteroid in asteroids:
+            for shot in shots:
+                if asteroid.collison(shot):
+                    asteroid.kill()
+                    shot.kill()
+                
+            
 
         for asteroid in asteroids:
             if asteroid.collison(player):
