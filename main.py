@@ -1,39 +1,27 @@
-# this allows us to use code from
-# the open-source pygame library
-# throughout this file
 import pygame
 from constants import *
+from player import Player
 
-play = True
 
 def main():
-    print("Starting asteroids!")
     pygame.init()
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))    
-    game_lope(screen)
-    print("Ending asteroids!")
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    clock = pygame.time.Clock()
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    dt = 0
 
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return
 
-
-def game_lope(screen):
-    while play:
-        handel_Inputs()
-        if not play:
-            return
-        
-        screen.fill(0)
+        screen.fill("black")
+        player.draw(screen)
         pygame.display.flip()
 
+        # limit the framerate to 60 FPS
+        dt = clock.tick(60) / 1000
 
-def handel_Inputs():
-    handel_Window_Inputs()
-
-def handel_Window_Inputs():
-    global play
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            play = False
-            return
 
 if __name__ == "__main__":
     main()
